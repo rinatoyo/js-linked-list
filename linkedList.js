@@ -24,27 +24,13 @@ function linkedListGenerator() {
 
     if (head == null) {
       head = newNode;
-    }
-
-    if (tail !== null) {
+      tail = newNode;
+    } else {
       tail.next = newNode;
+      tail = newNode;
     }
-    tail = newNode;
-    return newNode;
-  };
 
-  let get = function(index) {
-    // console.log(head);
-    let indexCount = 0; //starting index
-    let currentNode = head; //starting point
-    while (indexCount < index && currentNode !== null) {
-      currentNode = currentNode.next;
-      indexCount++;
-    }
-    if (currentNode == null) {
-      return false;
-    }
-    return currentNode;
+    return newNode;
   };
 
   let remove = function(num) {
@@ -72,7 +58,38 @@ function linkedListGenerator() {
     }
   };
 
-  let insert = function() {};
+  let get = function(num) {
+    let indexCount = 0; //starting index
+    let currentNode = getHead(); //starting point
+    while (indexCount < num && currentNode !== null) {
+      currentNode = currentNode.next;
+      indexCount++;
+    }
+    if (currentNode == null) {
+      return false;
+    }
+    return currentNode;
+  };
+
+  let insert = function(value, num) {
+    let currentNode = get(num);
+    let prevNode = get(num - 1);
+    if (num < 0 || currentNode === false) {
+      return false;
+    } else if (num === 0) {
+      let newNode = {
+        value: value
+      };
+      newNode.next = currentNode;
+      head = newNode;
+    } else {
+      let newNode = {
+        value: value
+      };
+      newNode.next = currentNode;
+      prevNode.next = newNode;
+    }
+  };
 
   return {
     getHead: getHead,
